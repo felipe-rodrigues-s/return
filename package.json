@@ -1,0 +1,13 @@
+{
+  "name": "return",
+  "version": "1.0.0",
+  "description": "Projeto criando na maratona return mission-impulse",
+  "main": "index.js",
+  "repository": "https://github.com/felipe-rodrigues-s/return.git",
+  "author": "felipe",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
