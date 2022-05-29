@@ -9,5 +9,12 @@
   "private": true,
   "workspaces": [
     "packages/*"
-  ]
+    
+  ],
+  "devDependencies": {
+    "typescript": "^4.7.2"
+  },
+  "prisma": {
+    "schema": "packages/api/prisma/schema.prisma"
+  }
 }
