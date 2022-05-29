@@ -43,7 +43,7 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form method="post" action="http://localhost:3333/feedbacks"
+      <form 
         onSubmit={handleSubmitFeedback}
         className="my-4 w-full">
         <textarea
