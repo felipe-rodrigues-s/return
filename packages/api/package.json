@@ -5,7 +5,10 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "dev": "ts-node-dev src/api.ts"
+    "build": "npx tsc",
+    "start": "node dist/api.js",
+    "dev": "ts-node-dev src/api.ts",
+    "psi": "npx prisma generate"
   },
   "devDependencies": {
     "@swc/core": "^1.2.194",
