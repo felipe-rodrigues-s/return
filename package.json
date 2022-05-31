@@ -7,10 +7,9 @@
   "author": "felipe",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-    
-  ],
+  "workspaces":{ 
+    "packages": ["packages/*"]
+  },
   "devDependencies": {
     "typescript": "^4.7.2"
   },

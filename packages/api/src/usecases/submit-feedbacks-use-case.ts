@@ -21,7 +21,7 @@ export class SubmitFeedbackUseCase {
     }
 
     if(!comments){
-      throw new Error("type is required")
+      throw new Error("comments is required")
     }
 
     if (screenshots && !screenshots.startsWith('data:image/png;base64')){
@@ -41,6 +41,7 @@ export class SubmitFeedbackUseCase {
         `<div style="font-family: sans-serif; font-size:16px color:#111">`,
         `<p>Tipo do Feedback: ${type}</p>`,
         `<p>Comentário: ${comments}</p>`,
+        screenshots ? `<img src="${screenshots}"/>`: null,
         `<div>`].join('\n')
     })
   }

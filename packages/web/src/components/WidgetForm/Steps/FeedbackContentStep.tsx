@@ -1,7 +1,9 @@
 import { ArrowLeft } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { FeedbackType, feedbackTypes } from "..";
+import { api } from "../../../lib/api";
 import { CloseButton } from "../../CloseButton";
+import { Loading } from "../../Loading";
 import { ScreenshotButton } from "../SceenshotButton";
 
 interface FeedbackContentStepProps {
@@ -13,16 +15,29 @@ interface FeedbackContentStepProps {
 export function FeedbackContentStep({
   onFeedbackSent, feedbackType,
   onFeedbackRestartRequested }: FeedbackContentStepProps) {
-  const [screenshot, setScreenshot] = useState<string | null>(null)
-  const [comment, setComment] = useState('')
+  const [screenshots, setScreenshot] = useState<string | null>(null)
+  const [comments, setComment] = useState('')
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false)
+
   const feedbackTypeInfo = feedbackTypes[feedbackType]
 
-  function handleSubmitFeedback(event:FormEvent) {
+  async function handleSubmitFeedback(event: FormEvent) {
+    
     event.preventDefault();
+    setIsSendingFeedback(true);
+
     console.log({
-      comment,
-      screenshot,
+      comments,
+      screenshots,
     })
+
+    await api.post('/feedbacks', {
+      type: feedbackType,
+      comments,
+      screenshots,
+    })
+
+    setIsSendingFeedback(false);
 
     onFeedbackSent()
   }
@@ -43,7 +58,7 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form 
+      <form
         onSubmit={handleSubmitFeedback}
         className="my-4 w-full">
         <textarea
@@ -54,16 +69,17 @@ export function FeedbackContentStep({
 
         <footer className="flex gap-2 mt-2">
           <ScreenshotButton
-            screenshot={screenshot}
+            screenshot={screenshots}
             onScreenshotTook={setScreenshot}
           />
 
           <button
             type="submit"
-            disabled={comment.length === 0}
+            disabled={comments.length === 0 || isSendingFeedback}
             className="p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 transition-colors disabled:opacity-50 disabled:hover:bg-brand-500"
           >
-            Envie o seu feedback
+            {isSendingFeedback ? <Loading /> :'Enviar o seu feedback'}
+            
           </button>
         </footer>
       </form>
